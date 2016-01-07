@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  division_cd: 1
+  attached_file_id: 
+
+two:
+  content: MyText
+  division_cd: 1
+  attached_file_id: 
