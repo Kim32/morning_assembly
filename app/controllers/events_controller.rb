@@ -24,11 +24,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    if(event_params != nil)
-      @event = Event.new(event_params) #カレンダーから直接登録するのでいらなくなるはず
-    elsif(params[:event] != nil)
-      @event = Event.new(params[:event])
-    end
+    @event = Event.new(event_params)
 
     respond_to do |format|
       if @event.save
@@ -68,7 +64,7 @@ class EventsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
-      @event = Event.find(params[:id])
+        @event = Event.find(params[:id]) if(Event.find_by_id(params[:id]) != nil)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
