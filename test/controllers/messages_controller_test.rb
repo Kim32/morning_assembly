@@ -18,7 +18,7 @@ class MessagesControllerTest < ActionController::TestCase
 
   test "should create message" do
     assert_difference('Message.count') do
-      post :create, message: { attached_file_id: @message.attached_file_id, content: @message.content, division_cd: @message.division_cd }
+      post :create, message: {attached_file_id: @message.attached_file_id, content: @message.content, division_cd: @message.division_cd }
     end
 
     assert_redirected_to message_path(assigns(:message))
@@ -35,7 +35,7 @@ class MessagesControllerTest < ActionController::TestCase
   end
 
   test "should update message" do
-    patch :update, id: @message, message: { attached_file_id: @message.attached_file_id, content: @message.content, division_cd: @message.division_cd }
+    patch :update, id: @message, message: {attached_file_id: @message.attached_file_id, content: @message.content, division_cd: @message.division_cd }
     assert_redirected_to message_path(assigns(:message))
   end
 

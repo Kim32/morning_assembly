@@ -2,7 +2,7 @@ require 'test_helper'
 
 class EventsControllerTest < ActionController::TestCase
   setup do
-    @event = events(:one)
+    @message = events(:one)
   end
 
   test "should get index" do
@@ -18,30 +18,30 @@ class EventsControllerTest < ActionController::TestCase
 
   test "should create event" do
     assert_difference('Event.count') do
-      post :create, event: { allDay: @event.allDay, color: @event.color, end: @event.end, start: @event.start, title: @event.title }
+      post :create, message: {allDay: @message.allDay, color: @message.color, end: @message.end, start: @message.start, title: @message.title }
     end
 
-    assert_redirected_to event_path(assigns(:event))
+    assert_redirected_to event_path(assigns(:message))
   end
 
   test "should show event" do
-    get :show, id: @event
+    get :show, id: @message
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @event
+    get :edit, id: @message
     assert_response :success
   end
 
   test "should update event" do
-    patch :update, id: @event, event: { allDay: @event.allDay, color: @event.color, end: @event.end, start: @event.start, title: @event.title }
-    assert_redirected_to event_path(assigns(:event))
+    patch :update, id: @message, message: {allDay: @message.allDay, color: @message.color, end: @message.end, start: @message.start, title: @message.title }
+    assert_redirected_to event_path(assigns(:message))
   end
 
   test "should destroy event" do
     assert_difference('Event.count', -1) do
-      delete :destroy, id: @event
+      delete :destroy, id: @message
     end
 
     assert_redirected_to events_path

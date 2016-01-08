@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160107002406) do
+ActiveRecord::Schema.define(version: 20160108014956) do
+
+  create_table "attached_files", force: :cascade do |t|
+    t.string "name"
+    t.binary "data"
+  end
 
   create_table "events", force: :cascade do |t|
     t.string   "title"
@@ -23,8 +28,17 @@ ActiveRecord::Schema.define(version: 20160107002406) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "division_cd"
+    t.integer  "attached_file_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "staffs", force: :cascade do |t|
     t.string "name"
+    t.string "kana"
   end
 
 end
