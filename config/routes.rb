@@ -1,15 +1,12 @@
 Rails.application.routes.draw do
 
   resources :staffs
-  resources :messages
   resources :events
   resources :staffs
 
   get 'calendar/index'
   get 'calendar/modal'
   get 'calendar/holiday'
-  get 'calendar/voice_text'
-  get 'calendar/save_voice'
 
   #resources :pages, :except => [:show]
 

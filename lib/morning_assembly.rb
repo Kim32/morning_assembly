@@ -8,7 +8,7 @@ class MorningAssembly
   end
 
   def main
-    exercises
+    #exercises
     duty
   end
 

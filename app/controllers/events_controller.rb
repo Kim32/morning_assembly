@@ -5,6 +5,8 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @events = Event.all
+    holiday(params[:start], params[:end]) if !params[:start].nil? && !params[:end].nil?
+
   end
 
   # GET /events/1
@@ -61,6 +63,28 @@ class EventsController < ApplicationController
     end
   end
 
+  def holiday(start_time, end_time)
+    calendar_id = 'ja.japanese#holiday@group.v.calendar.google.com'
+    uri = "https://www.googleapis.com/calendar/v3/calendars/#{CGI.escape(calendar_id)}/events?" +
+        "orderBy=startTime&singleEvents=true&timeZone=Asia%2FTokyo&timeMin=#{CGI.escape(start_time.to_time.iso8601)}&" +
+        "timeMax=#{CGI.escape(end_time.to_time.iso8601)}&key=#{CGI.escape(Settings.google_api_key)}"
+    result = JSON.parse(open(uri).read)
+
+    start = result ['items'].map{|v| v["start"]["date"].to_date}
+    summary = result ['items'].map{|v| v['summary']}
+
+    i = 0
+    start.each do |start|
+      event = Event.new
+      event.id = "dummy"
+      event.title = summary[i]
+      event.start = start
+      event.allDay = true
+      event.color= "red"
+      @events << event
+      i += 1
+    end
+  end
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_event

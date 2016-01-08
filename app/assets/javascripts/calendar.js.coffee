@@ -69,5 +69,5 @@ $(document).ready ->
     buttonText:
       today: '今日'
 
-    weekends: true
+    weekends: false
   })
