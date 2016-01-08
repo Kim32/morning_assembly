@@ -2,11 +2,9 @@ Rails.application.routes.draw do
 
   resources :staffs
   resources :events
-  resources :staffs
 
   get 'calendar/index'
   get 'calendar/modal'
-  get 'calendar/holiday'
 
   #resources :pages, :except => [:show]
 

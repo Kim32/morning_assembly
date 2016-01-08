@@ -6,7 +6,6 @@ class EventsController < ApplicationController
   def index
     @events = Event.all
     holiday(params[:start], params[:end]) if !params[:start].nil? && !params[:end].nil?
-
   end
 
   # GET /events/1
@@ -76,7 +75,7 @@ class EventsController < ApplicationController
     i = 0
     start.each do |start|
       event = Event.new
-      event.id = "dummy"
+      event.id = 'dummy'
       event.title = summary[i]
       event.start = start
       event.allDay = true
