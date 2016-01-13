@@ -11,7 +11,19 @@
  * file per style scope.
  *
  *= require fullcalendar
+ *= require jquery-ui
  *= require_tree .
  *= require_self
 
  */
+
+* html #tooltip {
+    position: absolute;
+}
+#tooltip {
+    position: fixed;
+    /*opacity: 40;*/
+    z-index: 100;
+    background: yellow;
+    color: black;
+}

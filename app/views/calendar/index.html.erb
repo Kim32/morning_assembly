@@ -1,3 +1,44 @@
 <div id="calendar"></div>
 
 <%= link_to '社員登録・変更', staffs_path %>
+
+<html>
+<head>
+  <title>Bootstrap 101 Template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="false">×</button>
+    <h3 id="myModalLabel">朝礼当番</h3>
+  </div>
+
+  <%= form_tag('/events', method: :post) do %>
+    <div class="modal-body">
+      <p>朝礼当番を選択してください</p>
+      <select id="select" name="event[title]">
+        <% @staff.each do |staff| %>
+            <option value=<%= staff.name %>> <%= staff.name %> </option>
+        <% end %>
+      </select>
+        <input type="hidden" name="event[start]" id="event[start]">
+        <input type="hidden" name="event[allDay]" value="true">
+        <input type="hidden" name="event[color]" value="green">
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="false">キャンセル</button>
+      <button class="btn" type="submit" value="送信" >決定</button>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  })
+</script>
+</body>
+</html>

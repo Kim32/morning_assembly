@@ -51,4 +51,6 @@ group :development do
 
   gem 'voicetext'
   gem 'rails_config'
+  gem 'twitter-bootstrap-rails'
+
 end

@@ -2,18 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready ->
-  select = (start, allDay) ->
-    title = window.showModalDialog("/calendar/modal")
-    if title != null
-      data = {event: {title: title, start: start.toString(), end: start.toString(), allDay: true, color: "green"}}
-      $.ajax({
-        type: "POST",
-        url: "/events",
-        data: data
-        success: ->
-          calendar.fullCalendar('refetchEvents')
-      })
-      calendar.fullCalendar('unselect')
+  select = (start) ->
+    if(dayClick(start))
+      document.getElementById('event[start]').value=start;
+      $('#myModal').modal {}
 
   deleteEvent = (event, revertFunc) ->
     if window.confirm("削除しますか?")
@@ -28,18 +20,37 @@ $(document).ready ->
         error: revertFunc
       })
 
+  dayClick = (start) ->
+    events = $('#calendar').fullCalendar('clientEvents');
+    for event in events
+      if(event.start >= start && event.start < start + 1)
+        return false
+    return true
+
   calendar = $('#calendar').fullCalendar({
     events: {
       url: '/events',
       success:(events) ->
         $(events).each ->
+          this.tooltip = '<div id="tooltip" weight=100>削除</div>'
           this.url = null
     },
     selectable: true,
     selectHelper: true,
-    ignoreTimezone: false,
+    gnoreTimezone: false,
     select: select,
     eventClick: deleteEvent,
+    eventMouseover: (calEvent, jsEvent) ->
+      $('body').prepend(calEvent.tooltip);
+      xOffset = -10 + $('#tooltip').height();
+      yOffset = 10;
+      #alert()
+      $('#tooltip')
+      .css('top', (jsEvent.pageY - xOffset) + 'px')
+      .css('left', (jsEvent.pageX + yOffset) + 'px')
+#      .fadeIn();
+    eventMouseout: (calEvent, jsEvent) ->
+      $('#tooltip').remove()
 
     titleFormat:
       month: 'YYYY年 MMMM'
@@ -70,4 +81,5 @@ $(document).ready ->
       today: '今日'
 
     weekends: false
+
   })
