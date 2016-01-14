@@ -48,9 +48,11 @@ $(document).ready ->
       $('#tooltip')
       .css('top', (jsEvent.pageY - xOffset) + 'px')
       .css('left', (jsEvent.pageX + yOffset) + 'px')
+      $(this).addClass("can_delete")
 #      .fadeIn();
     eventMouseout: (calEvent, jsEvent) ->
       $('#tooltip').remove()
+      $(this).removeClass("can_delete")
 
     titleFormat:
       month: 'YYYY年 MMMM'
