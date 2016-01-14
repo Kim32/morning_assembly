@@ -1,10 +1,14 @@
 class CalendarController < ApplicationController
   def index
     @staff = Staff.select("name")
-  end
 
-  def modal
-    @staff = Staff.select("name")
-  end
+    file_names = Dir.glob('config/*.yml')
+    @exist = false
+    file_names.each do |file_name|
+      @exist = true if(file_name == 'config/settings.local.yml')
+    end
 
+    @events = Event.all.as_json
+    gon.events = Event.all
+  end
 end

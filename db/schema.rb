@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108014956) do
+ActiveRecord::Schema.define(version: 20160114024311) do
 
   create_table "attached_files", force: :cascade do |t|
     t.string "name"
@@ -24,8 +24,9 @@ ActiveRecord::Schema.define(version: 20160108014956) do
     t.datetime "end"
     t.string   "color"
     t.boolean  "allDay"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "category",   default: 0
   end
 
   create_table "messages", force: :cascade do |t|

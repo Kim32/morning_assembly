@@ -53,4 +53,5 @@ group :development do
   gem 'rails_config'
   gem 'twitter-bootstrap-rails'
 
+  gem 'gon'
 end

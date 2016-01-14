@@ -7,18 +7,19 @@ $(document).ready ->
       document.getElementById('event[start]').value=start;
       $('#myModal').modal {}
 
-  deleteEvent = (event, revertFunc) ->
-    if window.confirm("削除しますか?")
-      url = "/events/" + event.id
-      data = {_method: 'DELETE'}
-      $.ajax({
-        type: "POST",
-        url: url,
-        data: data,
-        success: ->
-          calendar.fullCalendar("refetchEvents")
-        error: revertFunc
-      })
+  deleteEvent = (calEvent, revertFunc) ->
+    if flag(calEvent)
+      if window.confirm("削除しますか?")
+        url = "/events/" + calEvent.id
+        data = {_method: 'DELETE'}
+        $.ajax({
+          type: "POST",
+          url: url,
+          data: data,
+          success: ->
+            calendar.fullCalendar("refetchEvents")
+          error: revertFunc
+        })
 
   dayClick = (start) ->
     events = $('#calendar').fullCalendar('clientEvents');
@@ -27,12 +28,18 @@ $(document).ready ->
         return false
     return true
 
+  flag = (calEvent) ->
+    for event in gon.events
+      if(event.id == calEvent.id)
+        if(event.category == "human")
+          return true
+    return false
+
   calendar = $('#calendar').fullCalendar({
     events: {
       url: '/events',
       success:(events) ->
         $(events).each ->
-          this.tooltip = '<div id="tooltip" weight=100>削除</div>'
           this.url = null
     },
     selectable: true,
@@ -40,18 +47,12 @@ $(document).ready ->
     gnoreTimezone: false,
     select: select,
     eventClick: deleteEvent,
-    eventMouseover: (calEvent, jsEvent) ->
-      $('body').prepend(calEvent.tooltip);
-      xOffset = -10 + $('#tooltip').height();
-      yOffset = 10;
-      #alert()
-      $('#tooltip')
-      .css('top', (jsEvent.pageY - xOffset) + 'px')
-      .css('left', (jsEvent.pageX + yOffset) + 'px')
-      $(this).addClass("can_delete")
-#      .fadeIn();
-    eventMouseout: (calEvent, jsEvent) ->
-      $('#tooltip').remove()
+    eventMouseover: (calEvent) ->
+      if flag(calEvent)
+        $(this).addClass("can_delete")
+        $(this).css("cursor","pointer");
+
+    eventMouseout: ->
       $(this).removeClass("can_delete")
 
     titleFormat:

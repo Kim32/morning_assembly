@@ -3,9 +3,7 @@ Rails.application.routes.draw do
   resources :staffs
   resources :events
 
-  get 'calendar/index'
-  get 'calendar/modal'
-
+  root :to => 'calendar#index'
   #resources :pages, :except => [:show]
 
   # The priority is based upon order of creation: first created -> highest priority.

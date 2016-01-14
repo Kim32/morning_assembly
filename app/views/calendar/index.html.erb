@@ -1,3 +1,8 @@
+<% if(@exist == false) %>
+    <br>
+    <p class="exist">configディレクトリに「settings.local.ymlが存在しません。」</p>
+<% end %>
+
 <div id="calendar"></div>
 
 <%= link_to '社員登録・変更', staffs_path %>
@@ -9,6 +14,7 @@
 </head>
 
 <body>
+
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="false">×</button>
@@ -34,11 +40,6 @@
     </div>
   <% end %>
 </div>
-
-<script type="text/javascript">
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-  })
-</script>
+<input type="hidden" id="test" name="test" data-sample='<%= @events %>' >
 </body>
 </html>

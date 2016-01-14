@@ -7,7 +7,13 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @events = Event.all
-    holiday(params[:start], params[:end]) if !params[:start].nil? && !params[:end].nil?
+
+    file_names = Dir.glob('config/*.yml')
+    exist = false
+    file_names.each do |file_name|
+      exist = true if(file_name == 'config/settings.local.yml')
+    end
+    holiday(params[:start], params[:end]) if !params[:start].nil? && !params[:end].nil? && exist
   end
 
   # GET /events/1
@@ -28,15 +34,12 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(event_params)
-
-    if(Event.find_by_start(@event.start) == nil)
-      respond_to do |format|
-        if @event.save
-          format.html { redirect_to :controller => 'calendar', :action => 'index' }
-        else
-         format.html { render :new }
-         format.json { render json: @event.errors, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      if @event.save
+        format.html { redirect_to :controller => 'calendar', :action => 'index' }
+      else
+        format.html { render :new }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -78,11 +81,12 @@ class EventsController < ApplicationController
     i = 0
     start.each do |start|
       event = Event.new
-      event.id = 'dummy'
+      event.id = -1
       event.title = summary[i]
       event.start = start
       event.allDay = true
       event.color= "red"
+      event.category=1
       @events << event
       i += 1
     end

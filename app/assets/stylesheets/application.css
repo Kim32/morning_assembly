@@ -17,20 +17,14 @@
 
  */
 
-* html #tooltip {
-    position: absolute;
-}
-#tooltip {
-    position: fixed;
-    /*opacity: 40;*/
-    z-index: 100;
-    background: yellow;
-    color: black;
-}
-
 .can_delete:after {
     content: '[X]';
     position: absolute;
     top: 0px;
     right: 5px;
+}
+
+p.exist{
+    font-size: large;
+    color: red;
 }
