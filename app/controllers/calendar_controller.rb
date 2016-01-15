@@ -1,6 +1,6 @@
 class CalendarController < ApplicationController
   def index
-    @staff = Staff.select("name")
+    @staff = Staff.select('name')
 
     file_names = Dir.glob('config/*.yml')
     @exist = false
@@ -8,7 +8,6 @@ class CalendarController < ApplicationController
       @exist = true if(file_name == 'config/settings.local.yml')
     end
 
-    @events = Event.all.as_json
     gon.events = Event.all
   end
 end

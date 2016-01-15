@@ -13,7 +13,9 @@ class EventsController < ApplicationController
     file_names.each do |file_name|
       exist = true if(file_name == 'config/settings.local.yml')
     end
-    holiday(params[:start], params[:end]) if !params[:start].nil? && !params[:end].nil? && exist
+    if !params[:start].nil? && !params[:end].nil? && exist
+      holiday(params[:start], params[:end])
+    end
   end
 
   # GET /events/1
@@ -71,30 +73,31 @@ class EventsController < ApplicationController
   def holiday(start_time, end_time)
     calendar_id = 'ja.japanese#holiday@group.v.calendar.google.com'
     uri = "https://www.googleapis.com/calendar/v3/calendars/#{CGI.escape(calendar_id)}/events?" +
-        "orderBy=startTime&singleEvents=true&timeZone=Asia%2FTokyo&timeMin=#{CGI.escape(start_time.to_time.iso8601)}&" +
-        "timeMax=#{CGI.escape(end_time.to_time.iso8601)}&key=#{CGI.escape(Settings.google_api_key)}"
+      "orderBy=startTime&singleEvents=true&timeZone=Asia%2FTokyo&timeMin=#{CGI.escape(start_time.to_time.iso8601)}&" +
+      "timeMax=#{CGI.escape(end_time.to_time.iso8601)}&key=#{CGI.escape(Settings.google_api_key)}"
     result = JSON.parse(open(uri).read)
 
-    start = result ['items'].map{|v| v["start"]["date"].to_date}
-    summary = result ['items'].map{|v| v['summary']}
+    start = result['items'].map{|v| v['start']['date'].to_date}
+    summary = result['items'].map{|v| v['summary']}
 
     i = 0
-    start.each do |start|
+    start.each do |holiday_start|
       event = Event.new
       event.id = -1
       event.title = summary[i]
-      event.start = start
+      event.start = holiday_start
       event.allDay = true
-      event.color= "red"
-      event.category=1
+      event.color= 'red'
+      event.category = 1
       @events << event
       i += 1
     end
   end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_event
-    @event = Event.find(params[:id]) if(Event.find_by_id(params[:id]) != nil)
+    @event = Event.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

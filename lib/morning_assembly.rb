@@ -19,7 +19,8 @@ class MorningAssembly
   end
 
   def duty
-    Event.select('title').where("start >= ? and start < ?", @target_date, @target_date + 1).limit(1).each do |duty|
+    dutys = Event.where("start >= ? and start < ?", @target_date, @target_date + 1)
+    dutys.each do |duty|
       speak(duty.title)
     end
   end

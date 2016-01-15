@@ -1,6 +1,6 @@
-<% if(@exist == false) %>
+<% unless(@exist) %>
     <br>
-    <p class="exist">configディレクトリに「settings.local.ymlが存在しません。」</p>
+    <p class="exist">configディレクトリに「settings.local.yml」が存在しません。</p>
 <% end %>
 
 <div id="calendar"></div>
@@ -14,7 +14,6 @@
 </head>
 
 <body>
-
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="false">×</button>
@@ -26,7 +25,7 @@
       <p>朝礼当番を選択してください</p>
       <select id="select" name="event[title]">
         <% @staff.each do |staff| %>
-            <option value=<%= staff.name %>> <%= staff.name %> </option>
+          <option value=<%= staff.name %>> <%= staff.name %> </option>
         <% end %>
       </select>
         <input type="hidden" name="event[start]" id="event[start]">
@@ -40,6 +39,5 @@
     </div>
   <% end %>
 </div>
-<input type="hidden" id="test" name="test" data-sample='<%= @events %>' >
 </body>
 </html>

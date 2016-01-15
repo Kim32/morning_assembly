@@ -13,9 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.turbolinks
-//= require turbolinks
 //= require jquery-ui
 //= require moment
 //= require fullcalendar
 //= require_tree .
-

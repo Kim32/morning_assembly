@@ -29,7 +29,6 @@ class StaffsController < ApplicationController
     respond_to do |format|
       if @staff.save
         voice(@staff)
-
         format.html { redirect_to @staff, notice: 'Staff was successfully created.' }
         format.json { render :show, status: :created, location: @staff }
       else
@@ -45,7 +44,6 @@ class StaffsController < ApplicationController
     respond_to do |format|
       if @staff.update(staff_params)
         voice(@staff)
-
         format.html { redirect_to @staff, notice: 'Staff was successfully updated.' }
         format.json { render :show, status: :ok, location: @staff }
       else
@@ -66,7 +64,7 @@ class StaffsController < ApplicationController
   end
 
   def voice(staff)
-    message = Message.new(content: '今日の朝礼当番は、' + staff.kana + 'さんです。')
+    message = Message.new( content: '今日の朝礼当番は、' + staff.kana + 'さんです。' )
     attached_file_id = message.voice_text
 
     voice = AttachedFile.find(attached_file_id)
