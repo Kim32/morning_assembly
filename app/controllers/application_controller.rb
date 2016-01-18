@@ -5,6 +5,6 @@ class ApplicationController < ActionController::Base
 
   private
   def exist_file
-    @exist = File.exist?("config/settings.local.yml")
+    @yml_exist = File.exist?("config/settings.local.yml")
   end
 end

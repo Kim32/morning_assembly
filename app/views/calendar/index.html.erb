@@ -2,7 +2,7 @@
   <%= link_to '社員登録・変更', staffs_path, class: 'staff_link' %>
 </div>
 
-<% unless(@exist) %>
+<% unless(@yml_exist) %>
     <div>
       <p class="exist">configディレクトリに「settings.local.yml」が存在しません。</p>
     </div>

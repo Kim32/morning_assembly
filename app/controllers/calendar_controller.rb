@@ -3,7 +3,6 @@ class CalendarController < ApplicationController
 
   def index
     @staff = Staff.select('name')
-    puts @exist
     gon.events = Event.all
   end
 end

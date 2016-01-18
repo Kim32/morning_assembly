@@ -1,5 +1,3 @@
-require ENV['PWD'] + '/lib/message'
-
 class StaffsController < ApplicationController
   before_action :set_staff, only: [:show, :edit, :update, :destroy]
 

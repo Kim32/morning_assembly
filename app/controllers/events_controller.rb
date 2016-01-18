@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   def index
     @events = Event.all
 
-    if !params[:start].nil? && !params[:end].nil? && @exist
+    if !params[:start].nil? && !params[:end].nil? && @yml_exist
       holiday(params[:start], params[:end])
     end
   end
