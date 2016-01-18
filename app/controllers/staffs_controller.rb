@@ -1,3 +1,5 @@
+require ENV['PWD'] + '/lib/message'
+
 class StaffsController < ApplicationController
   before_action :set_staff, only: [:show, :edit, :update, :destroy]
 
@@ -64,7 +66,7 @@ class StaffsController < ApplicationController
   end
 
   def voice(staff)
-    message = Message.new( content: '今日の朝礼当番は、' + staff.kana + 'さんです。' )
+    message = Message.new('今日の朝礼当番は、' + staff.kana + 'さんです。' )
     attached_file_id = message.voice_text
 
     voice = AttachedFile.find(attached_file_id)
