@@ -1,11 +1,14 @@
-<%= link_to '社員登録・変更', staffs_path %>
+<div style="margin:10px">
+  <%= link_to '社員登録・変更', staffs_path, class: 'staff_link' %>
+</div>
 
 <% unless(@exist) %>
-    <br>
-    <p class="exist">configディレクトリに「settings.local.yml」が存在しません。</p>
+    <div>
+      <p class="exist">configディレクトリに「settings.local.yml」が存在しません。</p>
+    </div>
 <% end %>
 
-<div id="calendar"></div>
+<div id="calendar" style="margin:10px"></div>
 
 <html>
 <head>
