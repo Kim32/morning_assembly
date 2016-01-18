@@ -27,7 +27,7 @@ class MorningAssembly
 
   def speak(duty_name)
     return if duty_name.blank?
-    path = 'voice/'+ duty_name + '.wav'
+    path = "voice/#{duty_name}.wav"
     system("afplay #{path}")
   end
 end
