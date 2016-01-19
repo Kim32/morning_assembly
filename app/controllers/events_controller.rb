@@ -2,18 +2,14 @@ require 'open-uri'
 
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :exist_file, only: :index
 
   # GET /events
   # GET /events.json
   def index
     @events = Event.all
 
-    file_names = Dir.glob('config/*.yml')
-    exist = false
-    file_names.each do |file_name|
-      exist = true if(file_name == 'config/settings.local.yml')
-    end
-    if !params[:start].nil? && !params[:end].nil? && exist
+    if !params[:start].nil? && !params[:end].nil? && @yml_exist
       holiday(params[:start], params[:end])
     end
   end

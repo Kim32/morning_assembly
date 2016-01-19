@@ -64,11 +64,11 @@ class StaffsController < ApplicationController
   end
 
   def voice(staff)
-    message = Message.new( content: '今日の朝礼当番は、' + staff.kana + 'さんです。' )
+    message = Message.new("今日の朝礼当番は、#{staff.kana}さんです。" )
     attached_file_id = message.voice_text
 
     voice = AttachedFile.find(attached_file_id)
-    open('voice/' + staff.name + '.wav','wb') do |f|
+    open("voice/#{staff.name}.wav",'wb') do |f|
       f.write(voice.data)
     end
   end
